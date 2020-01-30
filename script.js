@@ -57,11 +57,11 @@ function voltear() {
         var imagen = event.target.id;
         console.log(imagen);
         //Ejecutamos la animación para mostrar la imagen.
-        setTimeout(() => {
+
             $("#"+identificador).toggleClass("ocultas");
             $("#"+identificador).toggleClass("arriba");
             $("#"+identificador).toggleClass("animacion");
-        }, 1000);
+        
         imagenesSeleccionadas.push(imagen);
         arrayIdentificadores.push(identificador);
         if (click == 2) {
@@ -111,8 +111,8 @@ function comprobar() {
         comprobarImagenAcertada(arrayIdentificadores[0]);
         comprobarImagenAcertada(arrayIdentificadores[1]);
 
-        animacion(arrayIdentificadores[0])
-        animacion(arrayIdentificadores[1])
+        animacion(arrayIdentificadores[0]);
+        animacion(arrayIdentificadores[1]);
         
 
 
@@ -154,16 +154,9 @@ function animacion(identificador) {
             $("#"+identificador).animate().toggleClass("ocultas");
             $("#"+identificador).animate().toggleClass("arriba");
             $("#"+identificador).animate().toggleClass("animacion"); 
-        }, 2000);
-        
-
+        }, 2500);
 }
 
-// function animacion2(identificador) {
-//     $("#" + identificador + " img").removeClass("animacion2");
-//     $("#" + identificador + " img").addClass("piezas");
-    
-// }
 
 function movimientos(click) {
     movs += click;

@@ -44,7 +44,9 @@ button {
     width: 100px;
 }
 
-.ocultas img{   
+.ocultas img{ 
+    user-select: none;
+    -webkit-user-drag: none;  
     opacity: 0;
     
 }
