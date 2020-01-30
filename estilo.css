@@ -1,0 +1,67 @@
+body {
+    background-image: url(img/fondo.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.encabezado {
+    border-style: ridge;
+    margin: 10px;
+    width: 50%;
+}
+
+#primero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(177, 177, 177);
+}
+
+#info {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    margin-top: 15px;
+}
+
+#puzzle {
+    margin: 2% 31.5%;
+}
+
+.cualquierpieza{
+    border-style: groove;
+    height: 100px;
+    width: 100px;
+}
+
+.ocultas img{   
+    opacity: 0;
+    
+}
+
+.arriba img{  
+    opacity: 1;
+    
+}
+
+.animacion{
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: initial;
+}
+
+  /* Standard syntax */
+  @keyframes example {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }

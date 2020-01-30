@@ -1,0 +1,165 @@
+var identificador = 0;
+var cont = 0;
+var s = 0;
+var m = 0;
+var cronometro;
+var imgs = ["img/Air_Force.jpg", "img/Air_Max_270.jpg", "img/Air_Force_01.jpg",
+    "img/Huarache.jpg", "img/Jordan_1.jpg", "img/Falcon.jpg", "img/AF1_Off.jpg", "img/AJR1_Off.jpg",
+    "img/All_star.jpg", "img/Sketch_to_self.jpg"
+];
+var imagenesSeleccionadas = [""];
+
+window.onload = function() {
+
+    $("button").one("click", function() {
+        var id = $(this).attr("id");
+        if (id == "5X4") {
+            $("table").remove();
+            dimensiones(5, 4);
+            imagenes(20);
+
+        } else if (id == "3X4") {
+            $("table").remove();
+            dimensiones(3, 4);
+            imagenes(12);
+
+        } else if (id == "2X3") {
+            $("table").remove();
+            dimensiones(2, 3);
+            imagenes(6);
+
+
+        } else {
+            alert("En estos momentos estamos en mantenimiento")
+        }
+        movimientos(0);
+        parartiempo();
+        tiempo();
+        voltear();
+    })
+
+}
+
+function dimensiones(columnas, lineas) {
+    cont++;
+    $('#puzzle').append('<table>');
+    for (let i = 0; i < lineas; i++) {
+        $('#puzzle').append('<tr>');
+        for (let z = 0; z < columnas; z++) {
+            $('#puzzle').append('<td><div class="piezas" id="Imagen' + cont + '"></div></td>');
+            cont++;
+        }
+        $('#puzzle').append('</tr>');
+    }
+    $('#puzzle').append('</table>');
+    $('.piezas').css({ "width": "100px", "height": "100px", "background-image": "url(img/principal.jpg)", "background-size": "100px 100px" });
+
+}
+
+function voltear() {
+    $('.piezas').click(function(event) {
+        identificador = event.target.id;
+        $("#" + identificador).after(function() {
+            $("div#" + identificador).css({
+                "transition": "all 1s ease-in-out",
+                "transform": "rotate(360deg)",
+                "background-image": "red",
+            })
+        })
+    })
+
+
+}
+
+function imagenes(numero) {
+    for (let i = 1; i <= numero; i++) {
+        // console.log("url(img/" + imgs[i] + ")");
+        var imagenAleatoria = imgs[Math.floor(Math.random() * imgs.length)];
+        console.log(imagenAleatoria);
+        for (let z = 0; z < 2; z++) {
+            var yaestaImg = jQuery.inArray(imagenAleatoria, imagenesSeleccionadas)
+            if (yaestaImg != -1) {
+                $('#Imagen' + i).css({
+                    "width": "100px",
+                    "height": "100px",
+                    "background-image": "url(" +
+                        imagenAleatoria + ")",
+                    "background-size": "100px 100px"
+                });
+                $('#Imagen' + (i + 1)).css({
+                    "width": "100px",
+                    "height": "100px",
+                    "background-image": "url(" +
+                        imagenAleatoria + ")",
+                    "background-size": "100px 100px"
+                });
+            }
+        }
+        imagenesSeleccionadas.push(imagenAleatoria);
+        console.log(imagenesSeleccionadas);
+        var cuntasveces = imagenesSeleccionadas.indexOf(imagenAleatoria);
+        console.log("esto no se si funciona " + cuntasveces);
+    }
+
+}
+
+function movimientos(contador) {
+    $('.piezas').click(function() {
+        contador++;
+        document.getElementById("movimientos").innerHTML = "Movimientos: <br>" + contador;
+    })
+}
+
+function tiempo() {
+    
+    cronometro = setInterval(contartiempo, 1000)
+}
+
+function contartiempo() {
+    var tiempo = document.getElementById("tiempo");
+    s++;
+    if (s < 10) {
+        if (s > 59) {
+            s = 00;
+            m++;
+            tiempo.innerHTML = "Tiempo:<br> 0" + m + ":" + s;
+
+        }
+        tiempo.innerHTML = "Tiempo:<br> 0" + m + " : 0" + s;
+    } else {
+        if (s > 59) {
+            s = 00;
+            m++;
+            tiempo.innerHTML = "Tiempo:<br> 0" + m + ":" + s;
+
+        }
+        tiempo.innerHTML = "Tiempo:<br> 0" + m + ":" + s;
+    }
+
+}
+
+function parartiempo() {
+    clearInterval(cronometro);
+    s = 0;
+    m = 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$("div#" + identificador).css({
+        //             "transition": "all 1s ease-in-out",
+        //             "transform": "rotate(360deg)",
+        //             "background-image": "url(img/principal.jpg)"
+        //         });
