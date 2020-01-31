@@ -9,7 +9,7 @@ Juego de memoria se tienen que ir descubriendo parejas de elementos iguales o re
 ## Comenzar
 
 1. Descargar el repositorio con:     `git clone https://github.com/Julen198/Juego_Memoria.git`
-2. Abrir archivo index.html con tu navegador preferido (recomendamos Google Chrome).
+2. Abrir archivo **index.html** con tu navegador preferido (recomendamos Google Chrome).
 
 ### Prerrequisitos
 
