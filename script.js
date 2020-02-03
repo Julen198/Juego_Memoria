@@ -15,19 +15,32 @@ var arrayacertadas = [];
 var arrayIdentificadores = [];
 var arraymezclado = [];
 var click = 1;
+var bloquear = false;
 
 
 window.onload = function() {
     $("button").click(tiempo);
+    $('.button').on('click',function() {
+        $(".button").prop("disabled",true);
+    });
+    // $(".cualquierpieza").click(function(event){
+    //     alert("estamos aqui");
+    //     voltear(event);
+    // });
 
 }
 
 function juegoterminado() {
     if (arrayacertadas.length == arraymezclado.length) {
-        alert(arrayacertadas.length);
-        $('#puzzle').html("");
-        $('#puzzle').append('<center><img src="img/fotovictoria.jpg" width="540px" height="432px"></center>');
         parartiempo();
+        $('#puzzle').html("");
+        $('#puzzle').append('<img src="img/fotovictoria.jpg" width="540px" height="432px">');
+        $('#puzzle img').addClass("animacionfinal");
+        setTimeout(() => {
+        $('#puzzle img').removeClass("animacionfinal");
+        $('#puzzle img').addClass("animacionfinal1");
+        }, 3000);
+
     }
 }
 
@@ -50,21 +63,29 @@ function dimensiones(columnas, lineas) {
 }
 
 function voltear() {
+
+    $("div img").click(false);
     $(".cualquierpieza").click(function(event) {
+        if (bloquear === true) {
+            return;
+        }  
         var identificador = event.delegateTarget.attributes.id.value;
-        console.log(identificador);
+        // console.log(identificador);
         //Guardamos la imagen, que posteriormente utilizaremos en la comparación.
         var imagen = event.target.id;
-        console.log(imagen);
+        // console.log(imagen);
         //Ejecutamos la animación para mostrar la imagen.
 
-            $("#"+identificador).toggleClass("ocultas");
-            $("#"+identificador).toggleClass("arriba");
-            $("#"+identificador).toggleClass("animacion");
-        
+        $("#" + identificador).toggleClass("ocultas");
+        $("#" + identificador).toggleClass("arriba");
+        $("#" + identificador).toggleClass("animacion");
+
         imagenesSeleccionadas.push(imagen);
         arrayIdentificadores.push(identificador);
         if (click == 2) {
+
+            bloquear = true;
+
             var mismaimagen = comprobarMismaImagen();
             if (mismaimagen == true) {
                 alert("Ha pulsado la misma imagen");
@@ -73,19 +94,36 @@ function voltear() {
                 arrayIdentificadores = [];
                 click = 0;
 
-
             } else {
                 comprobar();
+
             }
+            setTimeout(() => {
+                bloquear = false;
+            }, 2600);
+
         } else {
             //Continua clickando
-            console.log("estos son los clicks que lleva" + click)
+            // console.log("estos son los clicks que lleva" + click);
+            // console.log("$(div img).click(true);");
+            // $("div img").click(true);
+
         }
+        
         movimientos(1);
         click++;
         juegoterminado();
-    })
+        // setTimeout(() => {
+        //     bloquear = false;
+        //     $(".cualquierpieza").click(true);
+        // }, 2600);
+        
+    })   
+
 }
+    
+
+
 
 function comprobar() {
     // console.log(imagenesSeleccionadas);
@@ -113,8 +151,6 @@ function comprobar() {
 
         animacion(arrayIdentificadores[0]);
         animacion(arrayIdentificadores[1]);
-        
-
 
         imagenesSeleccionadas = [];
         arrayIdentificadores = [];
@@ -124,22 +160,22 @@ function comprobar() {
 }
 
 function comprobarImagenAcertada(imagen) {
-    console.log("comprobarImagenAcertada " + imagen);
+    // console.log("comprobarImagenAcertada " + imagen);
     var acertada = arrayacertadas.indexOf(imagen);
     if (acertada != -1) {
-        console.log("Esta imagen ya esta acertada, no se deberia de dar la vuelta");
+        // console.log("Esta imagen ya esta acertada, no se deberia de dar la vuelta");
 
 
     } else {
-        console.log("Esta imagen no ha sido acertada");
+        // console.log("Esta imagen no ha sido acertada");
     }
 
 }
 
 function comprobarMismaImagen() {
 
-    console.log("comprobarMismaImagen 0 " + arrayIdentificadores[0]);
-    console.log("comprobarMismaImagen 1 " + arrayIdentificadores[1]);
+    // console.log("comprobarMismaImagen 0 " + arrayIdentificadores[0]);
+    // console.log("comprobarMismaImagen 1 " + arrayIdentificadores[1]);
     if (arrayIdentificadores[0] == arrayIdentificadores[1]) {
         return true;
     } else {
@@ -150,11 +186,12 @@ function comprobarMismaImagen() {
 
 
 function animacion(identificador) {
-        setTimeout(() => {
-            $("#"+identificador).animate().toggleClass("ocultas");
-            $("#"+identificador).animate().toggleClass("arriba");
-            $("#"+identificador).animate().toggleClass("animacion"); 
-        }, 2500);
+    setTimeout(() => {
+        $("#" + identificador).animate().toggleClass("ocultas");
+        $("#" + identificador).animate().toggleClass("arriba");
+        $("#" + identificador).animate().toggleClass("animacion");
+    }, 2500);
+
 }
 
 
@@ -166,7 +203,7 @@ function movimientos(click) {
 
 
 function imagenes(numImgs) {
-
+    arraymezclado = [];
     for (let i = 0; i < numImgs; i++) {
         arraymezclado.push(imgs[i]);
         console.log(arraymezclado[i]);
